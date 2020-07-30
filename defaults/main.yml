@@ -1,0 +1,26 @@
+---
+# defaults/main.yml (percona-cluster-garbd)
+# prefix : pxc_garbd
+
+### インストール設定 ###############################################################################
+## 基本設定
+pxc_garbd_install_flag: True  # インストールフラグ
+pxc_garbd_package_name: "percona-release_latest.generic_all.deb"
+pxc_garbd_version: "5.7"
+pxc_garbd_config_path: "/etc/default/garbd"
+pxc_garbd_pxc_name: "{{ pxc_hosts | default('link-u_pxc') }}"
+
+## クラスタ内の IP アドレスリスト (arbitrator の IP アドレスは含まなくて良い）
+pxc_garbd_host_ips: []
+## 例1: クラスタ内の IP アドレスを直接リストする.
+# pxc_garbd_host_ips:
+#   - "192.0.2.11"
+#   - "192.0.2.12"
+#   - "192.0.2.13"
+#
+## 例2: production グループの local_ipv4 アドレスをリストする
+# pxc_garbd_host_ips: "{{ groups['production'] | map('extract', hostvars, 'local_ipv4') | list }}"
+
+pxc_garbd_galera_options:
+  base_dir:             "/var/lib/galera"    ## クラスタノードの同期順序を記録するために必要
+#  gmcast.listen_addr:   "{{ local_ipv4 }}"  ## listen アドレスの制限 (セキュア化)

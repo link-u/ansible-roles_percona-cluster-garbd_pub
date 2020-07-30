@@ -1,0 +1,12 @@
+---
+# tasks/install.yml (percona-cluster-garbd)
+# prefix : pxc_garbd
+
+- name: Add apt repository for Percona
+  apt:
+    deb: "http://repo.percona.com/apt/{{ pxc_garbd_package_name }}"
+
+- name: Install Percona Xtradb Cluster
+  apt:
+    name: "percona-xtradb-cluster-garbd-{{ pxc_garbd_version }}"
+    update_cache: yes

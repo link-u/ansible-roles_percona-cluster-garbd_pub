@@ -1,0 +1,22 @@
+---
+# tasks/configure.yml (percona-cluster-garbd)
+# prefix : pxc_garbd
+
+- name: Enabled pxc_garbd daemon
+  systemd:
+    name: garbd.service
+    enabled: yes
+
+- name: Mkdir based_dir for garbd
+  file:
+    path: "{{ pxc_garbd_galera_options.base_dir }}"
+    state: directory
+
+- name: Put config file for garbd
+  template:
+    src: garbd.j2
+    dest: "{{ pxc_garbd_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: "Reload pxc_garbd"
