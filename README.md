@@ -78,3 +78,8 @@ pxc_garbd_galera_options:
   roles:
     - { role: percona-cluster-garbd, tags: ["percona-cluster-garbd"] }
 ```
+
+## License
+GPLv2
+
+※ GPLで頒布されている [percona-xtradb-cluster](https://github.com/percona/percona-xtradb-cluster/) のファイルを改変した [templates/garbd.j2](./templates/garbd.j2) を含んでいる.
