@@ -1,0 +1,17 @@
+---
+# handlers/main.yml (percona-cluster-garbd)
+# prefix : pxc_garbd
+
+- name: "Restart pxc_garbd"
+  systemd:
+    name: garbd.service
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: "Reload pxc_garbd"
+  systemd:
+    name: garbd.service
+    state: reloaded
+    enabled: yes
+  become: yes

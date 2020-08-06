@@ -1,0 +1,23 @@
+# Copyright (C) 2012 Codership Oy
+# This config file is to be sourced by garb service script.
+
+# A comma-separated list of node addresses (address[:port]) in the cluster
+GALERA_NODES="{{ pxc_garbd_host_ips | join(',') }}"
+
+# Galera cluster name, should be the same as on the rest of the nodes.
+GALERA_GROUP="{{ pxc_garbd_pxc_name }}"
+
+# Optional Galera internal options string (e.g. SSL settings)
+# see http://galeracluster.com/documentation-webpages/galeraparameters.html
+{% if pxc_garbd_galera_options is defined %}
+GALERA_OPTIONS="
+{%- for key, value in pxc_garbd_galera_options.items() -%}
+{{ key }}={{ value }}
+{%- if not loop.last -%}; {% endif -%}
+{%- endfor -%}
+"
+{% endif %}
+
+# Log file for garbd. Optional, by default logs to syslog
+# Deprecated for CentOS7, use journalctl to query the log for garbd
+# LOG_FILE=""
